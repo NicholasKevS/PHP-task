@@ -32,13 +32,14 @@ if($file) {
 		if($user != array(null)) {
 			//print_r($user);
 			
-			//make first letter uppercase and add blackslashes to special character
-			$user[0] = addslashes(ucfirst(strtolower($user[0])));
-			$user[1] = addslashes(ucfirst(strtolower($user[1])));
+			$user[2] = trim($user[2]);
 			
-			$valid = true;
-			
-			if($valid) {
+			if(filter_var($user[2], FILTER_VALIDATE_EMAIL)) { //validate email
+				//make first letter uppercase and add blackslashes to special character and trim
+				$user[0] = addslashes(ucfirst(strtolower(trim($user[0]))));
+				$user[1] = addslashes(ucfirst(strtolower(trim($user[1]))));
+				$user[2] = addslashes($user[2]);
+				
 				$insertQuery = "INSERT INTO $tableName (name, surname, email) VALUES ('{$user[0]}', '{$user[1]}', '{$user[2]}')";
 				if(!mysqli_query($con, $insertQuery)) {
 					echo "Error message: ".mysqli_error($con)."\n";
