@@ -29,7 +29,11 @@ if($file) {
 	while(!feof($file)) {
 		$user = fgetcsv($file);
 		if($user != array(null)) {
-			print_r($user);
+			//print_r($user);
+			$insertQuery = "INSERT INTO $tableName (name, surname, email) VALUES ('{$user[0]}', '{$user[1]}', '{$user[2]}')";
+			if(!mysqli_query($con, $insertQuery)) {
+				echo "Error description: ".mysqli_error($con);
+			}
 		}
 	}
 	
