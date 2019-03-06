@@ -41,10 +41,10 @@ if($file) {
 			if($valid) {
 				$insertQuery = "INSERT INTO $tableName (name, surname, email) VALUES ('{$user[0]}', '{$user[1]}', '{$user[2]}')";
 				if(!mysqli_query($con, $insertQuery)) {
-					echo "Error message: ".mysqli_error($con);
+					echo "Error message: ".mysqli_error($con)."\n";
 				}
 			} else {
-				echo "Error message: Your email {$user[2]} is not valid";
+				echo "Error message: Your email {$user[2]} is not valid\n";
 			}
 		}
 	}
