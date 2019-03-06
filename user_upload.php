@@ -17,9 +17,8 @@ $con = mysqli_connect($host, $username, $password, $dbName);
 if(!$con) {
 	echo "Connection failed: ".mysqli_connect_error();
 } else {
-	$file = fopen($userFilePath, "r");
-	
-	if($file) {
+	if(file_exists($userFilePath)) {
+		$file = fopen($userFilePath, "r");
 		fgetcsv($file); //read the first line and do nothing with it
 
 		while(!feof($file)) {
@@ -46,6 +45,8 @@ if(!$con) {
 		}
 		
 		fclose($file);
+	} else {
+		echo "Error message: File not found\n";
 	}
 }
 
