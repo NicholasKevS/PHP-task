@@ -17,6 +17,8 @@ $con = mysqli_connect($host, $username, $password, $dbName);
 if(!$con) {
 	echo "Connection failed: ".mysqli_connect_error();
 } else {
+	create_table(); //create table if not exists
+	
 	if(file_exists($userFilePath)) {
 		$file = fopen($userFilePath, "r");
 		fgetcsv($file); //read the first line and do nothing with it
@@ -34,7 +36,7 @@ if(!$con) {
 					$user[1] = addslashes(ucfirst(strtolower(trim($user[1]))));
 					$user[2] = addslashes($user[2]);
 					
-					$insertQuery = "INSERT INTO $tableName (name, surname, email) VALUES ('{$user[0]}', '{$user[1]}', '{$user[2]}')";
+					$insertQuery = "INSERT INTO `$tableName` (`name`, `surname`, `email`) VALUES ('{$user[0]}', '{$user[1]}', '{$user[2]}')";
 					if(!mysqli_query($con, $insertQuery)) {
 						echo "Error message: ".mysqli_error($con)."\n";
 					}
@@ -44,6 +46,7 @@ if(!$con) {
 			}
 		}
 		
+		echo "Finished inputting user data into database\n";
 		fclose($file);
 	} else {
 		echo "Error message: File not found\n";
@@ -51,3 +54,24 @@ if(!$con) {
 }
 
 mysqli_close($con);
+
+function create_table() {
+	//get global variable
+	$con = $GLOBALS['con'];
+	$tableName = $GLOBALS['tableName'];
+	
+	$checkTableQuery = "DESCRIBE `$tableName`";
+	if(!mysqli_query($con, $checkTableQuery)) {
+		echo "There is no users table\n";
+		echo "Users table will be created\n";
+	
+		$makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `surname` TEXT NOT NULL , `email` TEXT NOT NULL , PRIMARY KEY (`id`))";
+		if(!mysqli_query($con, $makeTableQuery)) {
+			echo "Error message: ".mysqli_error($con)."\n";
+		} else {
+			echo "Users table created\n";
+		}
+	} else {
+		echo "Found users table in the database\n";
+	}
+}
