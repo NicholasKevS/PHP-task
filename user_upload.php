@@ -95,6 +95,7 @@ if(empty($opt)) {
 
 //functions
 function connect_db($opt) {
+	//get global or user input variable
 	$host = isset($opt['h'])?$opt['h']:$GLOBALS['host'];
 	$username = isset($opt['u'])?$opt['u']:$GLOBALS['username'];
 	$password = isset($opt['p'])?$opt['p']:$GLOBALS['password'];
