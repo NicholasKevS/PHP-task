@@ -7,7 +7,9 @@ Using php 7.0.33 for windows
 Downloaded from [https://windows.php.net/download/]
 
 ## MySQL version
-Using MySQL 10.1.38-MariaDB
+Using MySQL 10.1.38-MariaDB from XAMPP
+
+Downloaded from [https://www.apachefriends.org/download.html]
 
 ## Dependencies
 - MySQLi
