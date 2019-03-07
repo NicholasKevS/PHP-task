@@ -29,7 +29,7 @@ if(!$con) {
 			if($user != array(null)) {
 				//print_r($user);
 				
-				$user[2] = trim($user[2]);
+				$user[2] = strtolower(trim($user[2]));
 				
 				if(filter_var($user[2], FILTER_VALIDATE_EMAIL)) { //validate email
 					//make first letter uppercase and add blackslashes to special character and trim
