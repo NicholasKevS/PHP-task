@@ -3,6 +3,7 @@
 
 //script default settings
 $userFilePath = "../users.csv";
+$makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `surname` TEXT NOT NULL , `email` TEXT NOT NULL , PRIMARY KEY (`id`), UNIQUE `email_unique` (`email`))";
 
 //database default settings
 $host = "localhost";
@@ -59,13 +60,13 @@ function create_table() {
 	//get global variable
 	$con = $GLOBALS['con'];
 	$tableName = $GLOBALS['tableName'];
+	$makeTableQuery = $GLOBALS['makeTableQuery'];
 	
 	$checkTableQuery = "DESCRIBE `$tableName`";
 	if(!mysqli_query($con, $checkTableQuery)) {
 		echo "There is no users table\n";
 		echo "Users table will be created\n";
 	
-		$makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `surname` TEXT NOT NULL , `email` TEXT NOT NULL , PRIMARY KEY (`id`))";
 		if(!mysqli_query($con, $makeTableQuery)) {
 			echo "Error message: ".mysqli_error($con)."\n";
 		} else {
