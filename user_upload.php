@@ -29,22 +29,27 @@ $longOpt = array(
 $opt = getopt($shortOpt, $longOpt);
 
 if(empty($opt)) {
-	echo "No options found, use --help to see the option list\n";
+	echo "No options found or wrong use of options, use --help to see the option list\n";
 } elseif(isset($opt['create_table'])) {
-	$con = mysqli_connect($host, $username, $password, $dbName);
-	create_table();
+	$con = connect_db($opt);
+	
+	if($con) {
+		create_table();
+		mysqli_close($con);
+	}
 } elseif(isset($opt['rebuild_table'])) {
-	$con = mysqli_connect($host, $username, $password, $dbName);
-	rebuild_table();
+	$con = connect_db($opt);
+	
+	if($con) {
+		rebuild_table();
+		mysqli_close($con);
+	}
 } elseif(isset($opt['help'])) {
 	print_help();
 } elseif(isset($opt['file'])) {
-	$con = mysqli_connect($host, $username, $password, $dbName);
+	$con = connect_db($opt);
 
-	//test connection
-	if(!$con) {
-		echo "Connection failed: ".mysqli_connect_error();
-	} else {
+	if($con) {
 		create_table(); //create table if not exists
 		
 		if(file_exists($userFilePath)) {
@@ -79,14 +84,31 @@ if(empty($opt)) {
 		} else {
 			echo "Error message: File not found\n";
 		}
+		
+		mysqli_close($con);
 	}
 
-	mysqli_close($con);
 } else {
 	echo "Wrong use of options, use --help to see the option list\n";
 }
 
 //functions
+function connect_db($opt) {
+	$host = isset($opt['h'])?$opt['h']:$GLOBALS['host'];
+	$username = isset($opt['u'])?$opt['u']:$GLOBALS['username'];
+	$password = isset($opt['p'])?$opt['p']:$GLOBALS['password'];
+	$dbName = isset($opt['d'])?$opt['d']:$GLOBALS['dbName'];
+	
+	$con = mysqli_connect($host, $username, $password, $dbName);
+	
+	if(!$con) {
+		echo "Connection failed: ".mysqli_connect_error();
+		return false;
+	} else {
+		return $con;
+	}
+}
+
 function create_table() {
 	//get global variable
 	$con = $GLOBALS['con'];
