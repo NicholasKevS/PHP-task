@@ -67,8 +67,8 @@ if(empty($opt)) {
 
 		while(!feof($file)) {
 			$user = fgetcsv($file);
-			if($user != array(null)) {
-				//print_r($user);
+			if($user != array(null) && $user) {
+				//var_dump($user);
 				
 				$user[2] = strtolower(trim($user[2]));
 				
