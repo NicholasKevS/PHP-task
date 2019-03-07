@@ -3,7 +3,6 @@
 
 //script default settings
 $userFilePath = "../users.csv";
-$makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT , `name` TEXT NOT NULL , `surname` TEXT NOT NULL , `email` TEXT NOT NULL , PRIMARY KEY (`id`), UNIQUE `email_unique` (`email`))";
 
 //database default settings
 $host = "localhost";
@@ -11,6 +10,7 @@ $username = "root";
 $password = "root_password";
 $dbName = "php-task";
 $tableName = "users";
+$makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , `surname` VARCHAR(50) NOT NULL , `email` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`), UNIQUE `email_unique` (`email`))";
 
 $con = mysqli_connect($host, $username, $password, $dbName);
 
