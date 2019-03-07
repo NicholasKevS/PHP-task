@@ -16,6 +16,7 @@ $makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT 
 $shortOpt = "u:";
 $shortOpt .= "p:";
 $shortOpt .= "h:";
+$shortOpt .= "d:";
 
 $longOpt = array(
 			"file:",
@@ -137,5 +138,6 @@ function print_help() {
 	echo "-u - MySQL username\n";
 	echo "-p - MySQL password\n";
 	echo "-h - MySQL host\n";
+	echo "-d - MySQL database\n";
 	echo "--help - which will output the above list of directives with details\n";
 }

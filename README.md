@@ -14,3 +14,4 @@ Downloaded from [https://windows.php.net/download/]
 - Users table only have 4 colums which are id, name, surname, and email.
 - create_table option will only create table if there is no users table
 - Add rebuild_table option to drop and create users table
+- Add d option to specify database name
