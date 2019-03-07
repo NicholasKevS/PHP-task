@@ -76,3 +76,24 @@ function create_table() {
 		echo "Found users table in the database\n";
 	}
 }
+
+function rebuild_table() {
+	//get global variable
+	$con = $GLOBALS['con'];
+	$tableName = $GLOBALS['tableName'];
+	$makeTableQuery = $GLOBALS['makeTableQuery'];
+	
+	//Drop the database
+	if(!mysqli_query($con, "DROP TABLE `users`")) {
+		echo "Error message: ".mysqli_error($con)."\n";
+	} else {
+		echo "Users table deleted\n";
+	}
+	
+	//Build the database
+	if(!mysqli_query($con, $makeTableQuery)) {
+		echo "Error message: ".mysqli_error($con)."\n";
+	} else {
+		echo "Users table created\n";
+	}
+}
