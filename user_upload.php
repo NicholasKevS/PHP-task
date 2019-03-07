@@ -13,6 +13,20 @@ $tableName = "users";
 $makeTableQuery = "CREATE TABLE `$tableName` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(50) NOT NULL , `surname` VARCHAR(50) NOT NULL , `email` VARCHAR(50) NOT NULL , PRIMARY KEY (`id`), UNIQUE `email_unique` (`email`))";
 
 $con = mysqli_connect($host, $username, $password, $dbName);
+//command line option settings
+$shortOpt = "u:";
+$shortOpt .= "p:";
+$shortOpt .= "h:";
+
+$longOpt = array(
+			"file:",
+			"create_table",
+			"rebuild_table",
+			"dry_run",
+			"help");
+
+//get command line option
+$opt = getopt($shortOpt, $longOpt);
 
 //test connection
 if(!$con) {
