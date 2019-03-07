@@ -54,6 +54,7 @@ if(empty($opt)) {
 		echo "Database will not be altered\n";
 	} else {
 		$con = connect_db($opt);
+		if(!$con) die;
 	}
 	
 	if(file_exists($userFilePath)) {
