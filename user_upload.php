@@ -47,12 +47,13 @@ if(empty($opt)) {
 } elseif(isset($opt['help'])) {
 	print_help();
 } elseif(isset($opt['file'])) {
+	$userFilePath = $opt['file'];
 	$con = connect_db($opt);
 
-	if($con) {
-		create_table(); //create table if not exists
-		
+	if($con) {		
 		if(file_exists($userFilePath)) {
+			create_table(); //create table if not exists
+			
 			$file = fopen($userFilePath, "r");
 			fgetcsv($file); //read the first line and do nothing with it
 
@@ -82,7 +83,7 @@ if(empty($opt)) {
 			echo "Finished inputting user data into database\n";
 			fclose($file);
 		} else {
-			echo "Error message: File not found\n";
+			echo "Error message: File $userFilePath not found\n";
 		}
 		
 		mysqli_close($con);
